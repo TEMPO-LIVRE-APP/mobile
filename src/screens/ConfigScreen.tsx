@@ -3,8 +3,11 @@ import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeStackParamList } from '../types';
 import { Ionicons } from '@expo/vector-icons';
+import { useAuth } from '../context/AuthContext';
 
 export const ConfigScreen = ({navigation}:NativeStackScreenProps<HomeStackParamList, "ConfigScreen">) => {
+
+  const {logout} = useAuth();
 
   const settingsOptions = [
     { id: 'account', label: 'Conta', icon: 'person-outline' },
@@ -39,7 +42,16 @@ export const ConfigScreen = ({navigation}:NativeStackScreenProps<HomeStackParamL
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Configurações</Text>
+
+      <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: "space-between", paddingBlock: 10, marginBlock: 20}}>
+      
+        <Text style={styles.title}>Configurações</Text>
+
+        <TouchableOpacity onPress={() => logout()}>
+          <Ionicons name='log-out' size={40} style={{ alignSelf: "center", color: "#fff"}}/>
+        </TouchableOpacity>
+      </View>
+
       <FlatList
         data={settingsOptions}
         keyExtractor={(item) => item.id}
@@ -63,7 +75,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#fff',
     fontWeight: 'bold',
-    marginBottom: 24,
   },
   listContent: {
     paddingBottom: 20,

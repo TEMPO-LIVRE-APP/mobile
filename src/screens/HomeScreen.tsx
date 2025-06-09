@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import { HomeStackParamList, MockApiData, WeatherType } from '../types';
@@ -58,6 +59,7 @@ const mockData: MockApiData = {
 
 
 const HomeScreen = ({navigation}:NativeStackScreenProps<HomeStackParamList, "HomeScreen">) => {
+
   const [weatherData, setWeatherData] = useState<MockApiData>();
 
   useEffect(() => {
@@ -78,38 +80,40 @@ const HomeScreen = ({navigation}:NativeStackScreenProps<HomeStackParamList, "Hom
   const theme = weatherThemes[weatherData.weather] || weatherThemes.sunny;
 
   return (
-    <LinearGradient colors={theme.gradient} style={styles.container}>
 
-      <View style={styles.header}>
-        <Ionicons name="location-sharp" size={20} color="#fff" />
-        <Text style={styles.locationText}>{weatherData.location}</Text>
-        
-        <TouchableOpacity onPress={() => navigation.push("ConfigScreen")}>
-          <Ionicons name="menu" size={28} color="#fff" />
-        </TouchableOpacity>
-      </View>
+      <LinearGradient colors={theme.gradient} style={styles.container}>
 
-      <View style={styles.weatherCard}>
-        <Image source={theme.icon} style={styles.weatherIcon} />
-        <Text style={styles.temperatureText}>{weatherData.temperature}°</Text>
-        <Text style={styles.descriptionText}>{weatherData.description}</Text>
-
-        <View style={styles.infoRow}>
-          <Text style={styles.infoText}>☀️ {weatherData.uvIndex}</Text>
-          <Text style={styles.infoText}>💧 {weatherData.humidity}%</Text>
-          <Text style={styles.infoText}>🌬️ {weatherData.windSpeed} km/h</Text>
-          <Text style={styles.infoText}>⚖️ {weatherData.pressure} mb</Text>
+        <View style={styles.header}>
+          <Ionicons name="location-sharp" size={20} color="#fff" />
+          <Text style={styles.locationText}>{weatherData.location}</Text>
+          
+          <TouchableOpacity onPress={() => navigation.push("ConfigScreen")}>
+            <Ionicons name="menu" size={28} color="#fff" />
+          </TouchableOpacity>
         </View>
-      </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.push("FormScreen")}>
-        <Text style={styles.buttonText}>📢 Informe-nos sobre sua região</Text>
-      </TouchableOpacity>
+        <View style={styles.weatherCard}>
+          <Image source={theme.icon} style={styles.weatherIcon} />
+          <Text style={styles.temperatureText}>{weatherData.temperature}°</Text>
+          <Text style={styles.descriptionText}>{weatherData.description}</Text>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.push('ZoneScreen')}>
-        <Text style={styles.buttonText}>⚠️ Zonas de deslizamentos</Text>
-      </TouchableOpacity>
-    </LinearGradient>
+          <View style={styles.infoRow}>
+            <Text style={styles.infoText}>☀️ {weatherData.uvIndex}</Text>
+            <Text style={styles.infoText}>💧 {weatherData.humidity}%</Text>
+            <Text style={styles.infoText}>🌬️ {weatherData.windSpeed} km/h</Text>
+            <Text style={styles.infoText}>⚖️ {weatherData.pressure} mb</Text>
+          </View>
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={() => navigation.push("FormScreen")}>
+          <Text style={styles.buttonText}>📢 Informe-nos sobre sua região</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={() => navigation.push('ZoneScreen')}>
+          <Text style={styles.buttonText}>⚠️ Zonas de deslizamentos</Text>
+        </TouchableOpacity>
+      </LinearGradient>
+
   );
 };
 
@@ -130,6 +134,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: 30,
     marginBottom: 20,
   },
   locationText: {

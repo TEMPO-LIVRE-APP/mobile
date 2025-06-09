@@ -17,14 +17,14 @@ const RootNavigator = () => {
 
     return(
         <NavigationContainer>
-            <RootStack.Navigator>
+            <RootStack.Navigator screenOptions={{headerShown: false}}>
                 {isAuth ? (
                     <RootStack.Screen name="HomeStack" component={HomeStack} />
-                    ) : (
+                ) : (
                     <RootStack.Screen name="AuthStack" component={AuthStack} />
                 )}
             </RootStack.Navigator>
-        </NavigationContainer>
+        </NavigationContainer>         
     )
 }
 
