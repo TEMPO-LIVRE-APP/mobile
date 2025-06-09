@@ -26,13 +26,14 @@ const LoginScreen = ({navigation}: NativeStackScreenProps<AuthStackParamList, "L
   const handlerSubmmit = async () => {
     login();
     try {
-      const response = await client.post<AuthResponseData>("/auth/login", {
+      const response = await client.post<{token: string}>("/auth/login", {
         username: formData.email,
         password: formData.senha,
       });
 
       if (response.status === 200) {
         login();
+        setToken(response.data.token)
       } else {
         Alert.alert("Credenciais inválidas!");
       }

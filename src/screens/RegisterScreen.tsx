@@ -1,28 +1,52 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  Alert,
-} from 'react-native';
+import { View, Text,TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../types';
+import { AuthStackParamList, FormDataRegister } from '../types';
+import { client } from '../api/client';
 
 const RegisterScreen = ({navigation}:NativeStackScreenProps<AuthStackParamList, "RegisterScreen">) => {
   
-  const [email, setEmail] = useState('');
-  const [nome, setNome] = useState('');
-  const [senha, setSenha] = useState('');
-  const [repeteSenha, setRepeteSenha] = useState('');
+  const [formData, setFormData] = useState<FormDataRegister>({
+    role: "",
+    name: "",
+    email: "",
+    username: "",
+    password: "",
+    passwordVerify: "",
+  });
 
-  const handleRegister = () => {
-    Alert.alert("Cadastrando!")
-    navigation.navigate("LoginScreen")
-    console.log('Cadastro:', email, nome, senha, repeteSenha);
+  const handlerOnChange = (name: keyof FormDataRegister, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleRegister = async () => {
+    if (formData.password === formData.passwordVerify){
+      try {
+        const response = await client("/auth/register", {
+          role: formData.role,
+          name: formData.name,
+          email: formData.email,
+          username: formData.username,
+          password: formData.password,
+        })
+
+        if(response.status === 200){
+          Alert.alert("Cadastro Realizado!")
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      navigation.navigate("LoginScreen")
+
+      console.log('Cadastro:', formData);
+
+      setFormData({ role: "", name: "",email:"", username: "", password: "", passwordVerify: ""})
+
+    } else {
+      Alert.alert("Senhas diferentes!")
+    }
   };
 
   const handleGoToLogin = () => {
@@ -47,8 +71,8 @@ const RegisterScreen = ({navigation}:NativeStackScreenProps<AuthStackParamList, 
           style={styles.input}
           placeholder="Digite seu e-mail"
           placeholderTextColor="#ffffffaa"
-          value={email}
-          onChangeText={setEmail}
+          value={formData.email}
+          onChangeText={(value) => handlerOnChange('email', value)}
           keyboardType="email-address"
           autoCapitalize="none"
         />
@@ -60,8 +84,8 @@ const RegisterScreen = ({navigation}:NativeStackScreenProps<AuthStackParamList, 
           style={styles.input}
           placeholder="Digite seu nome"
           placeholderTextColor="#ffffffaa"
-          value={nome}
-          onChangeText={setNome}
+          value={formData.name}
+          onChangeText={(value) => handlerOnChange("name", value)}
         />
       </View>
 
@@ -71,8 +95,8 @@ const RegisterScreen = ({navigation}:NativeStackScreenProps<AuthStackParamList, 
           style={styles.input}
           placeholder="Digite sua senha"
           placeholderTextColor="#ffffffaa"
-          value={senha}
-          onChangeText={setSenha}
+          value={formData.password}
+          onChangeText={(value) => handlerOnChange("password", value)}
           secureTextEntry
         />
       </View>
@@ -83,8 +107,8 @@ const RegisterScreen = ({navigation}:NativeStackScreenProps<AuthStackParamList, 
           style={styles.input}
           placeholder="Digite sua senha novamente"
           placeholderTextColor="#ffffffaa"
-          value={repeteSenha}
-          onChangeText={setRepeteSenha}
+          value={formData.passwordVerify}
+          onChangeText={(value) => handlerOnChange("passwordVerify", value)}
           secureTextEntry
         />
       </View>

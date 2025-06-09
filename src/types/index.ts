@@ -3,6 +3,15 @@ type FormDataLogin = {
     senha: string,
 }
 
+type FormDataRegister = {
+  role: string,
+  name: string,
+  email: string,
+  username: string,
+  password: string,
+  passwordVerify: string,
+}
+
 type FormDataRegional = {
   [key: string]: string;
 };
@@ -62,6 +71,7 @@ export {
     MockApiData,
     FormDataLogin,
     FormDataRegional,
+    FormDataRegister,
     AuthResponseData,
     HomeStackParamList,
     AuthStackParamList,

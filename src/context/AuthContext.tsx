@@ -5,7 +5,7 @@ type AuthContextType = {
     login: () => void,
     logout: () => void,
     token: string,
-    setToken: () => void,
+    setToken: (token: string) => void,
     UserDetails: undefined,
     setUserDetails: () => void,
 }

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { markers } from '../data/markers'; // importa os dados mockados
+import { markers } from '../data/markers';
 import { Ionicons } from '@expo/vector-icons';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeStackParamList } from '../types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 
 const ZoneScreen = ({navigation}:NativeStackScreenProps<HomeStackParamList, "ZoneScreen">) => {
 
@@ -28,10 +28,6 @@ const ZoneScreen = ({navigation}:NativeStackScreenProps<HomeStackParamList, "Zon
     longitude: -46.633308,
     latitudeDelta: 0.1,
     longitudeDelta: 0.1,
-  };
-
-  const handleRecenter = () => {
-    mapRef.current?.animateToRegion(initialRegion, 1000); // duração da animação em ms
   };
 
   return (
@@ -97,10 +93,6 @@ const ZoneScreen = ({navigation}:NativeStackScreenProps<HomeStackParamList, "Zon
         ))}
       </MapView>
 
-      {/* Botão flutuante para recentralizar */}
-      <TouchableOpacity style={styles.recenterButton} onPress={() => handleRecenter()}>
-        <Ionicons name="locate-outline" size={24} color="#fff" />
-      </TouchableOpacity>
     </View>
   );
 };

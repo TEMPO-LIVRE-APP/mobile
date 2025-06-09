@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import { HomeStackParamList, MockApiData, WeatherType } from '../types';
@@ -93,9 +92,12 @@ const HomeScreen = ({navigation}:NativeStackScreenProps<HomeStackParamList, "Hom
         </View>
 
         <View style={styles.weatherCard}>
-          <Image source={theme.icon} style={styles.weatherIcon} />
-          <Text style={styles.temperatureText}>{weatherData.temperature}°</Text>
-          <Text style={styles.descriptionText}>{weatherData.description}</Text>
+
+          <View style={{ flexDirection: 'column', width: "60%", alignItems: 'center'}}>
+            <Image source={theme.icon} style={styles.weatherIcon} />
+            <Text style={styles.temperatureText}>{weatherData.temperature}°</Text>
+            <Text style={styles.descriptionText}>{weatherData.description}</Text>
+          </View>
 
           <View style={styles.infoRow}>
             <Text style={styles.infoText}>☀️ {weatherData.uvIndex}</Text>
@@ -144,6 +146,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   weatherCard: {
+    flexDirection: 'row',
     backgroundColor: '#ffffff22',
     borderRadius: 15,
     padding: 20,
@@ -153,21 +156,24 @@ const styles = StyleSheet.create({
   weatherIcon: {
     width: 80,
     height: 80,
-    marginBottom: 10,
   },
   temperatureText: {
-    fontSize: 48,
+    fontSize: 38,
     color: '#fff',
     fontWeight: 'bold',
+    alignSelf: "flex-start",
   },
   descriptionText: {
     fontSize: 18,
     color: '#fff',
     marginBottom: 10,
+    alignSelf: "flex-start",
   },
   infoRow: {
+    gap: 15,
     marginTop: 10,
     alignItems: 'flex-start',
+    justifyContent: "space-between",
   },
   infoText: {
     color: '#fff',

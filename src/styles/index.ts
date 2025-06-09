@@ -76,6 +76,63 @@ const styles = StyleSheet.create({
   linkTextBold: {
     fontWeight: "bold",
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 30,
+    marginBottom: 20,
+  },
+  locationText: {
+    color: '#fff',
+    fontSize: 16,
+    flex: 1,
+    marginLeft: 10,
+  },
+  weatherCard: {
+    backgroundColor: '#ffffff22',
+    borderRadius: 15,
+    padding: 20,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  weatherIcon: {
+    width: 80,
+    height: 80,
+    marginBottom: 10,
+  },
+  temperatureText: {
+    fontSize: 48,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  descriptionText: {
+    fontSize: 18,
+    color: '#fff',
+    marginBottom: 10,
+  },
+  infoRow: {
+    marginTop: 10,
+    alignItems: 'flex-start',
+  },
+  infoText: {
+    color: '#fff',
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  button: {
+    backgroundColor: '#ffffff33',
+    padding: 15,
+    borderRadius: 12,
+    marginBottom: 10,
+  },
 });
 
 export default styles;
+
